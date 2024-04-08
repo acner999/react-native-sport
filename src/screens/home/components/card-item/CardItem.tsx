@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import type { StyleProp, ViewStyle } from "react-native";
-import { View } from "react-native";
+import { View, Image } from "react-native";
 import Icon, { IconType } from "react-native-dynamic-vector-icons";
 import createStyles from "./CardItem.style";
 import RNBounceable from "@freakycoder/react-native-bounceable";
@@ -34,34 +34,72 @@ const CardItem: React.FC<ICardItemProps> = ({ style, data, onPress }) => {
     </>
   );
 
-  const renderLanguage = () => (
-    <View style={styles.languageContainer}>
-      <View style={styles.languageColorStyle} />
-      <Text style={styles.valueTextStyle}>{language}</Text>
-    </View>
-  );
-
   const renderStar = () => (
     <View style={styles.starContainer}>
-      <Icon name="star-o" type={IconType.FontAwesome} color={colors.text} />
-      <Text style={styles.valueTextStyle}>{star}</Text>
+      <Icon name="heart-o" type={IconType.FontAwesome} color={colors.text} />
+      <Text style={styles.valueTextStyle} h5> {star} Me gusta</Text>
     </View>
   );
 
   const renderFork = () => (
     <View style={styles.forkContainer}>
-      <Icon name="code-fork" type={IconType.FontAwesome} color={colors.text} />
-      <Text style={styles.valueTextStyle}>{fork}</Text>
+      <Icon name="comment-o" type={IconType.FontAwesome} color={colors.secondary} />
+      <Text style={styles.valueTextStyle} h5> {fork} Comentarios </Text>
     </View>
   );
 
+
   return (
     <RNBounceable style={[styles.container, style]} onPress={onPress}>
-      {renderHeader()}
+      <View style={{ flex: 1, flexDirection: "row" }}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <View style={{ height: 42, flex:1, justifyContent: "center", alignItems: "center",  }}>
+            <Text h3 bold color={colors.text} center>
+              Liga de Futbol de San lorenzo
+            </Text>
+          </View>
+
+          <Image
+            resizeMode="cover"
+            source={require("../../../../assets/images/escudo1.png")}
+            style={styles.escudoStyle}
+          />
+        </View>
+        <View
+          style={{  justifyContent: "center", alignItems: "center" }}
+        >
+          <Text h2 bold color={colors.primary} center>
+            VS
+          </Text>
+        </View>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+        <View style={{ height: 42, flex:1, justifyContent: "center", alignItems: "center",  }}>
+            <Text h3 bold color={colors.text} center>
+              Ocampeño
+            </Text>
+          </View>
+          <Image
+            resizeMode="cover"
+            source={require("../../../../assets/images/escudo2.png")}
+            style={styles.escudoStyle}
+          />
+        </View>
+      </View>
+
       <View style={styles.contentContainer}>
-        {renderLanguage()}
+
         {renderStar()}
         {renderFork()}
+       
       </View>
     </RNBounceable>
   );

@@ -10,7 +10,7 @@ export default [
   {
     name: "React Native Bouncy Checkbox",
     description: "Fully customizable animated bouncy checkbox",
-    language: "Typescript",
+    language: "Typescript ads sff",
     star: 272,
     fork: 22,
   },
@@ -32,7 +32,7 @@ export default [
   {
     name: "R2eact Native Header View",
     description: "Fully customizable Header View with multiple design options ",
-    language: "Typescript",
+    language: "Typescript cancha",
     star: 412,
     fork: 218,
   },

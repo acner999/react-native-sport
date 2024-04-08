@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { FlatList, Image, View } from "react-native";
+import { Button, FlatList, Image, View } from "react-native";
 import Icon, { IconType } from "react-native-dynamic-vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as NavigationService from "react-navigation-helpers";
@@ -8,14 +8,14 @@ import CardItem from "./components/card-item/CardItem";
 import MockData from "./mock/MockData";
 import fonts from "@fonts";
 import RNBounceable from "@freakycoder/react-native-bounceable";
-import { useTheme } from "@react-navigation/native";
+import { DrawerActions, useTheme } from "@react-navigation/native";
 import Text from "@shared-components/text-wrapper/TextWrapper";
+import { Avatar } from "react-native-paper";
 
-const profileURI =
-  // eslint-disable-next-line max-len
-  "https://images.unsplash.com/photo-1544568100-847a948585b9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2574&q=80";
-
-const HomeScreen: React.FC = () => {
+/* -------------------------------------------------------------------------- */
+/*                                 Component                                 */
+/* -------------------------------------------------------------------------- */
+const HomeScreen: React.FC = ({ navigation }) => {
   const theme = useTheme();
   const { colors } = theme;
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -24,31 +24,33 @@ const HomeScreen: React.FC = () => {
     NavigationService.navigate("Detail");
   };
 
-  /* -------------------------------------------------------------------------- */
-  /*                               Render Methods                               */
-  /* -------------------------------------------------------------------------- */
+  const handleMenuPress = () => {
+    navigation.dispatch(DrawerActions.toggleDrawer());
+  };
 
-  /*const renderMenuButton = () => (
-    <RNBounceable>
-      <Icon
-        name="menu"
-        type={IconType.Ionicons}
-        color={colors.iconBlack}
-        size={30}
-      />
-    </RNBounceable>
-  );*/
-  /*
   const renderHeader = () => (
     <View style={styles.header}>
-      {renderMenuButton()}
-      <Image
-        resizeMode="cover"
-        source={{ uri: profileURI }}
-        style={styles.profilePicImageStyle}
-      />
+      <RNBounceable onPress={handleMenuPress}>
+        <Icon
+          name="menu"
+          type={IconType.Ionicons}
+          color={colors.iconBlack}
+          size={30}
+        />
+      </RNBounceable>
+      <View>
+        <Image
+          resizeMode="cover"
+          source={require("../../assets/images/logohtc.png")}
+          style={styles.logoPicImageStyle}
+        />
+      </View>
+
+      <View>
+        <Avatar.Text size={30} label="AC" />
+      </View>
     </View>
-  );*/
+  );
 
   const renderList = () => (
     <View style={styles.listContainer}>
@@ -61,31 +63,25 @@ const HomeScreen: React.FC = () => {
     </View>
   );
 
-  const renderWelcome = () => (
-    <View>
-      <Text h1 bold color={colors.text}>
-        Hello Kuray
-      </Text>
-      <Text
-        fontFamily={fonts.montserrat.lightItalic}
-        color={colors.placeholder}
-      >
-        Welcome Back
-      </Text>
-    </View>
-  );
-
-  const renderContent = () => (
-    <View style={(styles.contentContainer, { backgroundColor: "red" })}>
-      {renderWelcome()}
-      {renderList()}
-    </View>
-  );
-
   return (
     <SafeAreaView style={styles.container}>
       {/* <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} /> */}
-      {renderContent()}
+      {renderHeader()}
+      <View style={styles.contentContainer}>
+        <View>
+          <Text h1 bold color={colors.text}>
+            Futbol Suizero
+          </Text>
+          <Text
+            h3
+            fontFamily={fonts.montserrat.lightItalic}
+            color={colors.placeholder}
+          >
+          Plataforma de desafios de fubol suizero 
+          </Text>
+        </View>
+        {renderList()}
+      </View>
     </SafeAreaView>
   );
 };

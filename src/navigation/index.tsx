@@ -28,6 +28,14 @@ const Navigation = () => {
   const scheme = useColorScheme();
   const isDarkMode = scheme === "dark";
 
+  const changeToggleTheme = () => {
+    if (isDarkMode) {
+      return LightTheme;
+    } else {
+      return DarkTheme;
+    }
+  };
+
   React.useEffect((): any => {
     return () => (isReadyRef.current = false);
   }, []);
@@ -70,7 +78,7 @@ const Navigation = () => {
     return (
       <Drawer.Navigator
         initialRouteName="home"
-        screenOptions={{ headerShown: true }}
+        screenOptions={{ headerShown: false }}
         drawerContent={(props) => <CustomDrawerContent {...props} />}
       >
         <Drawer.Screen name="home" component={RenderTabNavigation} />
@@ -87,6 +95,7 @@ const Navigation = () => {
           label="Help"
           onPress={() => Linking.openURL("https://mywebsite.com/help")}
         />
+        <DrawerItem label="change theme" onPress={() => changeToggleTheme()} />
       </DrawerContentScrollView>
     );
   };
@@ -97,6 +106,8 @@ const Navigation = () => {
         screenOptions={() => ({
           headerShown: false,
           tabBarActiveTintColor: palette.primary,
+          tabBarLabelStyle: { fontSize: 12, fontWeight: "bold" },
+          tabBarBadgeStyle: { backgroundColor: palette.secondary },
           tabBarInactiveTintColor: "gray",
           tabBarStyle: {
             backgroundColor: isDarkMode ? palette.black : palette.white,
@@ -122,11 +133,11 @@ const Navigation = () => {
           name="Search"
           component={SearchScreen}
           options={{
-            tabBarLabel: "Search",
+            tabBarLabel: "Equipos",
             tabBarIcon: ({ color, size, focused }) => (
               <Icon
-                name={focused ? "search" : "search-outline"}
-                type={IconType.Ionicons}
+                name={focused ? "users" : "users"}
+                type={IconType.FontAwesome5}
                 size={size}
                 color={color}
               />
@@ -138,10 +149,10 @@ const Navigation = () => {
           name="Notification"
           component={NotificationScreen}
           options={{
-            tabBarLabel: "Notification",
+            tabBarLabel: "Agenda",
             tabBarIcon: ({ color, size, focused }) => (
               <Icon
-                name={focused ? "notifications" : "notifications-outline"}
+                name={focused ? "calendar" : "calendar-outline"}
                 type={IconType.Ionicons}
                 size={size}
                 color={color}
@@ -155,7 +166,7 @@ const Navigation = () => {
           name="Profile"
           component={ProfileScreen}
           options={{
-            tabBarLabel: "Profile",
+            tabBarLabel: "Usuario",
             tabBarIcon: ({ color, size, focused }) => (
               <Icon
                 name={focused ? "person" : "person-outline"}

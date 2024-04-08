@@ -2,18 +2,18 @@ import type { ExtendedTheme } from "@react-navigation/native";
 import { DefaultTheme } from "@react-navigation/native";
 
 export const palette = {
-  primary: "#0564d4",
-  secondary: "#ff6a00",
+  primary: "#FF5050",
+  secondary: "#101214",
   background: "#f6f8fa",
   white: "#fff",
-  black: "#101214",
+  black: "",
   button: "#1c1e21",
   shadow: "#757575",
   text: "#30363b",
   borderColor: "#d0d7de",
   borderColorDark: "#333942",
   placeholder: "#a1a1a1",
-  danger: "rgb(208, 2, 27)",
+  danger: "#ff6a00",
   title: "rgb(102, 102, 102)",
   separator: "rgb(194, 194, 195)",
   highlight: "rgb(199, 198, 203)",

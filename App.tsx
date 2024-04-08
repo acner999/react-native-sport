@@ -6,22 +6,34 @@ import {
   SafeAreaProvider,
   initialWindowMetrics,
 } from "react-native-safe-area-context";
+import { PaperProvider } from "react-native-paper";
+
 /**
  * ? Local Imports
  */
 import Navigation from "./src/navigation";
 import { isAndroid } from "@freakycoder/react-native-helpers";
+import { DefaultTheme } from "@react-navigation/native";
 
-//LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs(true);
 
 const App = () => {
   const scheme = useColorScheme();
   const isDarkMode = scheme === "dark";
 
+  const theme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: "tomato",
+      secondary: "yellow",
+    },
+  };
+
   React.useEffect(() => {
     StatusBar.setBarStyle(isDarkMode ? "light-content" : "dark-content");
     if (isAndroid) {
-      // StatusBar.setBackgroundColor("rgba(0,0,0,0)");
+      StatusBar.setBackgroundColor("rgba(0,0,0,0)");
       StatusBar.setTranslucent(false);
     }
 
@@ -31,9 +43,11 @@ const App = () => {
   }, [scheme, isDarkMode]);
 
   return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <Navigation />
-    </SafeAreaProvider>
+    <PaperProvider theme={theme}>
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+        <Navigation />
+      </SafeAreaProvider>
+    </PaperProvider>
   );
 };
 
